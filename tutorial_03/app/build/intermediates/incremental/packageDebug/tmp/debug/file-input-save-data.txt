@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Wed Mar 25 19:48:42 GMT 2020
+#Wed Mar 25 20:07:50 GMT 2020
 0.baseType=DIRECTORY
 0.base=C\:\\Users\\admin\\Desktop\\codelabs_kotlin_android_fundamentals_v2\\tutorial_03\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out
 0.path=classes.dex
