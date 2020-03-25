@@ -1,4 +1,4 @@
-#Wed Mar 25 15:31:53 GMT 2020
-base.0=C\:\\Users\\admin\\Desktop\\AndroidTrivia-Starter\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out
+#Wed Mar 25 19:48:42 GMT 2020
+base.0=C\:\\Users\\admin\\Desktop\\codelabs_kotlin_android_fundamentals_v2\\tutorial_03\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out
 path.0=classes.dex
 renamed.0=classes.dex
