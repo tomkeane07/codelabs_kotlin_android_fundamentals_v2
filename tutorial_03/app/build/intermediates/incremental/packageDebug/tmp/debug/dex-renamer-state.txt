@@ -1,4 +1,0 @@
-#Wed Mar 25 20:07:49 GMT 2020
-base.0=C\:\\Users\\admin\\Desktop\\codelabs_kotlin_android_fundamentals_v2\\tutorial_03\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out
-path.0=classes.dex
-renamed.0=classes.dex
