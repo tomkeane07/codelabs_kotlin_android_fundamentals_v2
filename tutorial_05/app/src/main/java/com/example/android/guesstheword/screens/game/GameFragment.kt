@@ -49,38 +49,26 @@ class GameFragment : Fragment() {
                 container,
                 false
         )
-
         Log.i("GameFragment", "Called ViewModelProviders.of")
+
         viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
 
-        // attach an Observer object to the LiveData object for the current score and word
-        viewModel.score.observe(viewLifecycleOwner, Observer { newScore ->
-            binding.scoreText.text = newScore.toString()
-        })
-        viewModel.word.observe(viewLifecycleOwner, Observer { newWord ->
-            binding.wordIsText.text = newWord
-        })
+        // Set the viewmodel for databinding - this allows the bound layout access
+        // to all the data in the VieWModel
+        binding.gameViewModel = viewModel
+
+        // Specify the fragment view as the lifecycle owner of the binding.
+        // This is used so that the binding can observe LiveData updates
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        //Observer for the game finished event
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { hasFinished ->
-            if( hasFinished) gameFinished()
+            if(hasFinished) gameFinished()
         })
 
-        binding.correctButton.setOnClickListener { onCorrect() }
-        binding.skipButton.setOnClickListener { onSkip() }
-        binding.endGameButton.setOnClickListener{ onEndGame() }
         return binding.root
-
     }
 
-
-
-    /** Methods for button click handlers **/
-
-    private fun onSkip() {
-        viewModel.onSkip()
-    }
-    private fun onCorrect() {
-        viewModel.onCorrect()
-    }
 
     /**
      * Called when the game is finished
@@ -90,8 +78,6 @@ class GameFragment : Fragment() {
         val action = GameFragmentDirections.actionGameToScore()
         action.score = viewModel.score.value?:0
         NavHostFragment.findNavController(this).navigate(action)
-    }
-    private fun onEndGame() {
-        gameFinished()
+        viewModel.onGameFinishComplete()
     }
 }
