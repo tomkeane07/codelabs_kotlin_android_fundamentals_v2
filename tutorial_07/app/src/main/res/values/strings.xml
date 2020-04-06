@@ -59,4 +59,5 @@
 
 
     <string name="close">Close</string>
+    <string name="header_text">Sleep Results</string>
 </resources>
