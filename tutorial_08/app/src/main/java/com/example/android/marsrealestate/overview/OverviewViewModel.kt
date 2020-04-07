@@ -27,10 +27,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Response
 import java.lang.Exception
-import javax.security.auth.callback.Callback
 
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
@@ -46,11 +43,11 @@ class OverviewViewModel : ViewModel() {
 
     // Internally, we use a MutableLiveData, because we will be updating the List of MarsProperty
     // with new values
-    private val _property = MutableLiveData<MarsProperty>()
+    private val _properties = MutableLiveData<List<MarsProperty>>()
     // The external LiveData interface to the property is immutable,
     //so only this class can modify
-    val property: LiveData<MarsProperty>
-        get() = _property
+    val properties: LiveData<List<MarsProperty>>
+        get() = _properties
 
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
@@ -78,13 +75,7 @@ class OverviewViewModel : ViewModel() {
                 // Await the completion of our Retrofit request
                 var listResult = getPropertiesDeferred.await()
                 _response.value = "Success: ${listResult.size} Mars properties retrieved"
-                Log.d("imgSrcUrl", "aaa" )
-                if(listResult.isNotEmpty()){
-                    _property.value = listResult[0]
-                    Log.d("imgSrcUrl", property.value?.imgSrcUrl )
-                    Log.d("imgSrcUrl", "aaa" )
-
-                }
+                _properties.value = listResult
             }catch(e: Exception){
                 _response.value = "Failure: ${e.message}"
             }
