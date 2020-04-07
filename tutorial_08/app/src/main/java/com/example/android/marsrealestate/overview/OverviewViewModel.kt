@@ -17,6 +17,7 @@
 
 package com.example.android.marsrealestate.overview
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -43,8 +44,18 @@ class OverviewViewModel : ViewModel() {
     val response: LiveData<String>
         get() = _response
 
+    // Internally, we use a MutableLiveData, because we will be updating the List of MarsProperty
+    // with new values
+    private val _property = MutableLiveData<MarsProperty>()
+    // The external LiveData interface to the property is immutable,
+    //so only this class can modify
+    val property: LiveData<MarsProperty>
+        get() = _property
+
+    // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
+    // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(
             viewModelJob + Dispatchers.Main
     )
@@ -61,11 +72,19 @@ class OverviewViewModel : ViewModel() {
      */
     private fun getMarsRealEstateProperties() {
         coroutineScope.launch{
-            var getPropertiesDeferred = MarsApi.retrofitService.getProperties()
 
+            var getPropertiesDeferred = MarsApi.retrofitService.getProperties()
             try {
+                // Await the completion of our Retrofit request
                 var listResult = getPropertiesDeferred.await()
                 _response.value = "Success: ${listResult.size} Mars properties retrieved"
+                Log.d("imgSrcUrl", "aaa" )
+                if(listResult.isNotEmpty()){
+                    _property.value = listResult[0]
+                    Log.d("imgSrcUrl", property.value?.imgSrcUrl )
+                    Log.d("imgSrcUrl", "aaa" )
+
+                }
             }catch(e: Exception){
                 _response.value = "Failure: ${e.message}"
             }

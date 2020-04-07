@@ -28,8 +28,13 @@ import kotlinx.coroutines.Deferred
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 private const val BASE_URL = " https://android-kotlin-fun-mars-server.appspot.com/"
+
+private val moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
+
 private val retrofit = Retrofit.Builder()
-        .addConverterFactory(MoshiConverterFactory.create())
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .baseUrl(BASE_URL).build()
 
