@@ -35,7 +35,7 @@ class VideosRepository(private val database: VideosDatabase) {
     val videos: LiveData<List<DevByteVideo>> = Transformations.map(database.videoDao.getVideos()){
         it.asDomainModel()
     }
-    
+
     /**
     * API used to refresh the offline cache
     *
