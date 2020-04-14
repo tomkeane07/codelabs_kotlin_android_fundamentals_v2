@@ -63,4 +63,11 @@ dependencies {
 
     // Core with Ktx
     implementation "androidx.core:core-ktx:$version_core"
+
+    //retrofit Libraries
+    /*
+    It fetches data from the web service and routes it through
+     a separate converter library*/
+    implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
+    implementation "com.squareup.retrofit2:converter-scalars:$version_retrofit"
 }

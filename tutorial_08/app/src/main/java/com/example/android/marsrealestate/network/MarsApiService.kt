@@ -17,4 +17,36 @@
 
 package com.example.android.marsrealestate.network
 
+import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.http.GET
+
 private const val BASE_URL = " https://android-kotlin-fun-mars-server.appspot.com/"
+
+/*  It fetches data from the web service and routes it through
+ a separate converter library   */
+private val retrofit = Retrofit.Builder()
+        .addConverterFactory(ScalarsConverterFactory.create())
+        .baseUrl(BASE_URL)
+        .build()
+
+
+/*   an interface that defines how Retrofit talks to the web server using HTTP requests */
+interface MarsApiService {
+    @GET("realestate")
+    fun getProperties():
+            Call<String>
+}
+
+/*
+Because this call is expensive, and the app only needs
+one Retrofit service instance, you expose the service to the rest of the app using
+a public object called MarsApi, and lazily initialize the Retrofit service there
+*/
+object MarsApi {
+    val retrofitService : MarsApiService by lazy {
+        retrofit.create(MarsApiService::class.java) }
+}
+
+
