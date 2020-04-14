@@ -69,5 +69,12 @@ dependencies {
     It fetches data from the web service and routes it through
      a separate converter library*/
     implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
-    implementation "com.squareup.retrofit2:converter-scalars:$version_retrofit"
+    //implementation "com.squareup.retrofit2:converter-scalars:$version_retrofit"
+    implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
+
+/*    Moshi is an Android JSON parser
+    that converts a JSON string into Kotlin objects.
+    Retrofit has a converter that works with Moshi*/
+    implementation "com.squareup.moshi:moshi:$version_moshi"
+    implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
 }
