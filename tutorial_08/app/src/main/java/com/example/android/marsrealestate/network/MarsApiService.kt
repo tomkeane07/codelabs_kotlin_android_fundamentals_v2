@@ -39,6 +39,7 @@ interface MarsApiService {
             Call<String>
 }
 
+
 /*
 Because this call is expensive, and the app only needs
 one Retrofit service instance, you expose the service to the rest of the app using
@@ -48,5 +49,3 @@ object MarsApi {
     val retrofitService : MarsApiService by lazy {
         retrofit.create(MarsApiService::class.java) }
 }
-
-
